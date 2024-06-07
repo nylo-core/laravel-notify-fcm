@@ -1,0 +1,21 @@
+name: laravel_notify_fcm_example
+description: Demonstrates how to use the laravel_notify_fcm plugin.
+
+environment:
+  sdk: '>=2.19.0 <3.0.0'
+
+dependencies:
+  firebase_core: ^3.0.0
+  firebase_messaging: ^15.0.0
+  laravel_notify_fcm:
+    path: ../
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
