@@ -454,7 +454,7 @@ packages:
     source: hosted
     version: "2.1.8"
   pretty_dio_logger:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: pretty_dio_logger
       sha256: "00b80053063935cf9a6190da344c5373b9d0e92da4c944c878ff2fbef0ef6dc2"
