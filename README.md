@@ -32,7 +32,7 @@ dart pub add laravel_notify_fcm
 First, install the package via composer:
 
 ``` bash
-composer require nylo-core/laravel-fcm-channel
+composer require nylo/laravel-fcm-channel
 ```
 
 The package will automatically register itself.
