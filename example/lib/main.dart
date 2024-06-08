@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:laravel_notify_fcm/laravel_notify_fcm.dart';
 
 void main() async {
-
   // Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 
   LaravelNotifyFcm.instance.init(
-      firebaseMessaging: firebaseMessaging,
-      url: "https://example.com/api/fcm",
-      debugMode: true,
+    firebaseMessaging: firebaseMessaging,
+    url: "https://example.com/api/fcm",
+    debugMode: true,
   );
 
   runApp(MyApp());
@@ -55,7 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: () async {
               // get your sanctum token from your Laravel app
 
-              await LaravelNotifyFcm.storeFcmDevice(sanctumToken: 'sanctumToken');
+              await LaravelNotifyFcm.storeFcmDevice(
+                  sanctumToken: 'sanctumToken');
             },
           ),
         ),
