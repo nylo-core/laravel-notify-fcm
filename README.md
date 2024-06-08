@@ -6,7 +6,7 @@
   <a href="https://github.com/nylo-core/laravel-notify-fcm"><img alt="GitHub stars" src="https://img.shields.io/github/stars/nylo-core/laravel-notify-fcm?style=plastic"></a>
 </p>
 
-Laravel Notify Fcm if package for sending notifications to your Flutter app using Laravel FCM.
+Laravel Notify Fcm is a package for sending notifications to your Flutter app using Laravel FCM.
 
 ## Getting started
 
@@ -27,58 +27,9 @@ dart pub add laravel_notify_fcm
 
 ### Requirements
 
-## Installation
-
-First, install the package via composer:
-
-``` bash
-composer require nylo/laravel-fcm-channel
-```
-
-The package will automatically register itself.
-
-## Configuration
-
-Run the `install` command.
-
-```bash
-php artisan laravelfcm:install
-```
-This will add a (`laravelfcm.php`) config file
-
-ServiceProvider to your app.php: `App\Providers\FcmAppServiceProvider::class`
-
-Then, ask if you want to run the migrations.
-
-Here's the tables it will migrate:
-* fcm_devices
-
-Add your Google Service Account to `firebase_service_account_json`.
-
-```php
-<?php
-
-return '{
-    "type": "service_account",
-    "project_id": "123456789-me908",
-    "private_key_id": "123456789",
-    "private_key": "-----BEGIN PRIVATE KEY-----\123456789\n-----END PRIVATE KEY-----\n",
-    "client_email": "firebase-adminsdk-9p9z7@123456789-me908.iam.gserviceaccount.com",
-    "client_id": "123456789",
-    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-    "token_uri": "https://oauth2.googleapis.com/token",
-    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-9p9z7%123456789-me908.iam.gserviceaccount.com",
-    "universe_domain": "googleapis.com"
-  }';
-```
-
-You can download your Google Service Account in your Firebase Project Settings > Service Accounts > Manage service account permissions > "Actions (three dots) - Manage keys" > Add Key > Create New Key.
-
-Then, paste the JSON into the `firebase_service_account_json` file like in the above example.
-> **Note:** It's best to keep the key values in a `.env` file. Don't commit the JSON file to your repository.
-
-You can fully configure this package in the `config/laravelfcm.php` file (this file should be added after you run `php artisan laravelfcm:install`).
+- [Laravel](https://laravel.com/)
+- [Laravel Sanctum](https://laravel.com/docs/11.x/sanctum)
+- [laravel-fcm-channel](https://github.com/nylo-core/laravel-fcm-channel)
 
 ### Usage
 
@@ -94,7 +45,7 @@ First, call `init` to initialize the package.
 Parameters:
 - `url` - The URL to your Laravel app where the package will send the device token.
 - `firebaseMessaging` - The FirebaseMessaging instance.
-- `debugMode` - Whether to enable debug mode. Default is `false`.
+- `debugMode` - Whether to enable debug mode. The default is `false`.
 
 ```dart
 FirebaseMessaging firebaseMessaging = FirebaseMessaging();
@@ -110,11 +61,13 @@ Then, call `storeFcmDevice` to add the device to the database.
 ``` dart
 
 await LaravelNotifyFcm.instance.storeFcmDevice(
-  sanctumToken: 'from your laravel user',
+  sanctumToken: 'from your Laravel user',
 );
 ```
 
 This method will request permission to send notifications to the device. If the user accepts, the device will be added to the database.
+
+View our [docs](https://github.com/nylo-core/laravel-fcm-channel) on Laravel FCM Channel to start sending notifications.
 
 Try the [example](/example) app to see how it works.
 
