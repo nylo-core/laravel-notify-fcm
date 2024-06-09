@@ -16,7 +16,7 @@ Add the following to your `pubspec.yaml` file:
 
 ``` yaml
 dependencies:
-  laravel_notify_fcm: ^0.0.3
+  laravel_notify_fcm: ^0.0.4
 ```
 
 or with Dart:
@@ -48,7 +48,7 @@ Parameters:
 - `debugMode` - Whether to enable debug mode. The default is `false`.
 
 ```dart
-FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 
 await LaravelNotifyFcm.instance.init(
   url: 'https://example.com/api/fcm/devices',

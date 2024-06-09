@@ -69,10 +69,10 @@ packages:
     dependency: transitive
     description:
       name: device_info_plus
-      sha256: "77f757b789ff68e4eaf9c56d1752309bd9f7ad557cb105b938a7f8eb89e59110"
+      sha256: eead12d1a1ed83d8283ab4c2f3fca23ac4082f29f25f29dff0f758f57d06ec91
       url: "https://pub.dev"
     source: hosted
-    version: "9.1.2"
+    version: "10.1.0"
   device_info_plus_platform_interface:
     dependency: transitive
     description:
@@ -85,10 +85,10 @@ packages:
     dependency: "direct main"
     description:
       name: device_meta
-      sha256: "50d634c5bfbc23cfd89cdcb81be4b41346931c2fdc56e2d7bd7c710c8f82eeb7"
+      sha256: bc525cabecfaeb6c75dd4c5c923552c1c5a3167fca0b9bec31659f612660ace3
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.26"
+    version: "1.1.27"
   dio:
     dependency: "direct main"
     description:
@@ -369,10 +369,10 @@ packages:
     dependency: "direct main"
     description:
       name: nylo_support
-      sha256: "386018753053a9ec44a3d185494aa28ef8bef96d19794c2e5a11beecfb775a53"
+      sha256: "8fa3d218c3e9462ba63ba0c05df4b5446582e3a2e8b8cf04cd59648eca99f319"
       url: "https://pub.dev"
     source: hosted
-    version: "5.71.0"
+    version: "5.72.0"
   page_transition:
     dependency: transitive
     description:

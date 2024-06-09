@@ -7,7 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:laravel_notify_fcm/networking/laravel_fcm_api_service.dart';
 
 /// LaravelNotifyFcm version
-const String _laravelNotifyFcmVersion = '0.0.3';
+const String _laravelNotifyFcmVersion = '0.0.4';
 
 /// LaravelNotifyFcm class
 class LaravelNotifyFcm {
