@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:laravel_notify_fcm/laravel_notify_fcm.dart';
 import 'package:laravel_notify_fcm/networking/interceptors/interceptor_fcm_request.dart';
 import 'package:nylo_support/helpers/helper.dart';
-import 'package:nylo_support/networking/dio_api_service.dart';
 import 'package:nylo_support/networking/ny_api_service.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
