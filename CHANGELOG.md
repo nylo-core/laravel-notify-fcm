@@ -1,3 +1,8 @@
+## [1.0.0] - 2024-06-10
+
+* Update README.md
+* Fix bug with API Service and request headers.
+
 ## [0.0.4] - 2024-06-09
 
 * Update README.md.

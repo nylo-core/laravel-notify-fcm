@@ -20,11 +20,11 @@ class LaravelFcmApiService extends NyApiService {
         );
 
   @override
-  final interceptors = {
-    if (getEnv('APP_DEBUG', defaultValue: true) == true)
-      PrettyDioLogger: PrettyDioLogger(),
-    InterceptorNotifyFCM: InterceptorNotifyFCM(),
-  };
+  get interceptors => {
+        if (getEnv('APP_DEBUG', defaultValue: true) == true)
+          PrettyDioLogger: PrettyDioLogger(),
+        InterceptorNotifyFCM: InterceptorNotifyFCM(),
+      };
 
   /// Laravel FCM URL
   String get urlLaravel => LaravelNotifyFcm.instance.getUrl();
@@ -33,27 +33,27 @@ class LaravelFcmApiService extends NyApiService {
   String? get sanctumToken => LaravelNotifyFcm.instance.getSanctumToken();
 
   /// Create or update device
-  Future<bool> createOrUpdateDevice({bool active = true}) async {
+  Future<bool?> createOrUpdateDevice({bool active = true}) async {
     String? fcmToken = await LaravelNotifyFcm.getFcmToken();
     return await network(
-        request: (api) => api.put("/device", data: {
-              "is_active": (active == true ? 1 : 0),
-              "fcm_token": fcmToken,
-            }),
-        baseUrl: urlLaravel);
-  }
-
-  /* Authentication Headers
-  |--------------------------------------------------------------------------
-  | Set your auth headers
-  | Authenticate your API requests using a bearer token or any other method
-  |-------------------------------------------------------------------------- */
-
-  @override
-  Future<RequestHeaders> setAuthHeaders(RequestHeaders headers) async {
-    if (sanctumToken != null) {
-      headers.addBearerToken(sanctumToken!);
-    }
-    return headers;
+      request: (api) => api.put("/device", data: {
+        "is_active": (active == true ? 1 : 0),
+        "fcm_token": fcmToken,
+      }),
+      baseUrl: urlLaravel,
+      handleSuccess: (response) {
+        if (response.data == null) {
+          return false;
+        }
+        dynamic data = response.data;
+        if (!(data is Map)) {
+          return false;
+        }
+        if (data.containsKey('status') && data['status'] == 200) {
+          return true;
+        }
+        return false;
+      },
+    );
   }
 }

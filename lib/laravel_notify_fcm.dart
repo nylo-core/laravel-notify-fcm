@@ -7,7 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:laravel_notify_fcm/networking/laravel_fcm_api_service.dart';
 
 /// LaravelNotifyFcm version
-const String _laravelNotifyFcmVersion = '0.0.4';
+const String _laravelNotifyFcmVersion = '1.0.0';
 
 /// LaravelNotifyFcm class
 class LaravelNotifyFcm {
@@ -157,13 +157,15 @@ class LaravelNotifyFcm {
   /// Enable FCM device
   static Future<bool> enableFcmDevice() async {
     return await LaravelNotifyFcm.apiServiceFcm(
-        (api) => api.createOrUpdateDevice(active: true));
+            (api) => api.createOrUpdateDevice(active: true)) ??
+        false;
   }
 
   /// Disable FCM device
   static Future<bool> disableFcmDevice() async {
     return await LaravelNotifyFcm.apiServiceFcm(
-        (api) => api.createOrUpdateDevice(active: false));
+            (api) => api.createOrUpdateDevice(active: false)) ??
+        false;
   }
 
   /// Get the LaravelFcmApiService instance

@@ -16,7 +16,7 @@ Add the following to your `pubspec.yaml` file:
 
 ``` yaml
 dependencies:
-  laravel_notify_fcm: ^0.0.4
+  laravel_notify_fcm: ^1.0.0
 ```
 
 or with Dart:
