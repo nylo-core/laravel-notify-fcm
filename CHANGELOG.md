@@ -1,3 +1,7 @@
+## [1.0.1] - 2024-06-15
+
+* pubspec.yaml update.
+
 ## [1.0.0] - 2024-06-10
 
 * Update README.md
