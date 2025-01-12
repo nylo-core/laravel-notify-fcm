@@ -16,7 +16,7 @@ Add the following to your `pubspec.yaml` file:
 
 ``` yaml
 dependencies:
-  laravel_notify_fcm: ^1.0.2
+  laravel_notify_fcm: ^2.0.0
 ```
 
 or with Dart:
@@ -60,7 +60,7 @@ Then, call `storeFcmDevice` to add the device to the database.
 
 ``` dart
 
-await LaravelNotifyFcm.instance.storeFcmDevice(
+await LaravelNotifyFcm.storeFcmDevice(
   sanctumToken: 'from your Laravel user',
 );
 ```

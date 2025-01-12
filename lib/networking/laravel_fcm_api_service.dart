@@ -8,7 +8,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 /* LaravelFcmApiService
 |--------------------------------------------------------------------------
 | Define your API endpoints
-| Learn more https://nylo.dev/docs/5.20.0/networking
+| Learn more https://nylo.dev/docs/6.x/networking
 |-------------------------------------------------------------------------- */
 
 class LaravelFcmApiService extends NyApiService {

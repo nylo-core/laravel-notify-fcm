@@ -1,3 +1,9 @@
+## [2.0.0] - 2025-01-12
+
+* Small Refactor
+* Update Readme
+* pubspec.yaml update.
+
 ## [1.0.2] - 2024-07-08
 
 * pubspec.yaml update.
