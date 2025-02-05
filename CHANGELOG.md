@@ -1,3 +1,10 @@
+## [2.1.0] - 2025-02-05
+
+* Add the ability to scaffold Notifications in your Nylo app
+* Run `dart run laravel_notify_fcm:main install` to scaffold the necessary files for FCM notifications
+* pubspec.yaml update
+* Update Readme
+
 ## [2.0.0] - 2025-01-12
 
 * Small Refactor

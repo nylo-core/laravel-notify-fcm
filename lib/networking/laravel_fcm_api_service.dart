@@ -41,17 +41,9 @@ class LaravelFcmApiService extends NyApiService {
       }),
       baseUrl: urlLaravel,
       handleSuccess: (response) {
-        if (response.data == null) {
-          return false;
-        }
         dynamic data = response.data;
-        if (!(data is Map)) {
-          return false;
-        }
-        if (data.containsKey('status') && data['status'] == 200) {
-          return true;
-        }
-        return false;
+        if (!(data is Map)) return false;
+        return data.containsKey('status') && data['status'] == 200;
       },
     );
   }

@@ -16,7 +16,7 @@ Add the following to your `pubspec.yaml` file:
 
 ``` yaml
 dependencies:
-  laravel_notify_fcm: ^2.0.0
+  laravel_notify_fcm: ^2.1.0
 ```
 
 or with Dart:
@@ -32,6 +32,21 @@ dart pub add laravel_notify_fcm
 - [laravel-fcm-channel](https://github.com/nylo-core/laravel-fcm-channel)
 
 ### Usage
+
+Using Nylo? Run the following command to scaffold the necessary files for FCM notifications.
+
+``` bash
+dart run laravel_notify_fcm:main install
+```
+
+This will create the following files:
+- Provider - `FirebaseMessagingProvider` (lib/providers/firebase_messaging_provider.dart)
+  - This will initialize the package to send notifications to the device.
+- Page - `EnableNotificationsPage` (lib/pages/enable_notifications_page.dart)
+  - This page will request permission to send notifications to the device.
+  - You can navigate to it by calling `routeTo(EnableNotificationsPage.path);`.
+- Event - `RegisterForNotificationsEvent` (lib/events/register_for_notifications_event.dart)
+  - This event will be dispatched to request permission to send notifications to the device.
 
 ``` dart
 import 'package:laravel_notify_fcm/laravel_notify_fcm.dart';
@@ -51,7 +66,7 @@ Parameters:
 FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 
 await LaravelNotifyFcm.instance.init(
-  url: 'https://example.com/api/fcm/devices',
+  url: 'https://example.com/api/fcm',
   firebaseMessaging: firebaseMessaging,
 );
 ```
