@@ -1,3 +1,7 @@
+## [2.1.1] - 2025-03-27
+
+* pubspec.yaml update
+
 ## [2.1.0] - 2025-02-05
 
 * Add the ability to scaffold Notifications in your Nylo app
