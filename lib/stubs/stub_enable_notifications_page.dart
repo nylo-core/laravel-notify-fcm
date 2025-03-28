@@ -1,7 +1,7 @@
 String stubEnableNotificationsPage() => '''
 import 'package:flutter/material.dart';
-import 'package:flutter_app/app/events/register_for_notifications_event.dart';
 import 'package:nylo_framework/nylo_framework.dart';
+import '/app/events/register_for_notifications_event.dart';
 import '/resources/widgets/buttons/buttons.dart';
 import '/resources/widgets/safearea_widget.dart';
 
