@@ -1,3 +1,7 @@
+## [2.1.3] - 2025-05-23
+
+* pubspec.yaml update
+
 ## [2.1.2] - 2025-03-28
 
 * Small tweak to `EnableNotificationsPage`
