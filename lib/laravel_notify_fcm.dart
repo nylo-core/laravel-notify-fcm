@@ -7,7 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import '/networking/laravel_fcm_api_service.dart';
 
 /// LaravelNotifyFcm version
-const String _laravelNotifyFcmVersion = '2.1.4';
+const String _laravelNotifyFcmVersion = '2.1.5';
 
 /// LaravelNotifyFcm class
 class LaravelNotifyFcm {
@@ -69,6 +69,12 @@ class LaravelNotifyFcm {
   static Future<String?> getFcmToken() async {
     FirebaseMessaging firebaseMessaging =
         LaravelNotifyFcm.instance.getFirebaseMessaging();
+    if (Platform.isIOS) {
+      final apnsToken = await firebaseMessaging.getAPNSToken();
+      if (apnsToken == null) {
+        return null;
+      }
+    }
     return await firebaseMessaging.getToken();
   }
 

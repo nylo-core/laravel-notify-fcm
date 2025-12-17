@@ -1,3 +1,8 @@
+## [2.1.5] - 2025-12-17
+
+* Add extra check to `getFcmToken` method to ensure token is not null
+* pubspec.yaml update
+
 ## [2.1.4] - 2025-12-13
 
 * pubspec.yaml update
