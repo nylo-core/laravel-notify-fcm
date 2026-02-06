@@ -1,3 +1,27 @@
+## [3.0.0] - 2026-02-06
+
+### Added
+- `LaravelNotifyFcmNotInitializedException` custom exception for clearer error handling when the package is not initialized.
+- New test suite with unit, integration, API service, and interceptor tests.
+- Proper type annotations on `apiServiceFcm` return type and interceptors getter.
+
+### Changed
+- **BREAKING**: `init()` no longer requires a `firebaseMessaging` parameter. The package no longer manages `FirebaseMessaging` internally -- consumers must manage Firebase directly.
+- **BREAKING**: `storeFcmDevice()` now requires `fcmToken` as a positional parameter and returns `Future<bool?>` instead of `Future<NotificationSettings?>`.
+- **BREAKING**: `enableFcmDevice()` and `disableFcmDevice()` now require `fcmToken` as a positional parameter and `sanctumToken` as a named parameter.
+- **BREAKING**: Sanctum token is now passed per-call instead of being stored as instance state. Removed `getSanctumToken()` and `setSanctumToken()` methods.
+- Authentication header (`Authorization: Bearer`) is now set at the API request level instead of via the interceptor.
+- Interceptor now gracefully handles uninitialized state instead of throwing.
+- Upgraded `nylo_support` to ^7.0.0, `device_meta` to ^3.0.0, `dio` to ^5.9.0.
+
+### Removed
+- **BREAKING**: `firebase_messaging` direct dependency. Consumers must add `firebase_messaging` to their own `pubspec.yaml` and pass the FCM token to this package.
+- **BREAKING**: `getFirebaseMessaging()` method.
+- **BREAKING**: `getFcmToken()` static method.
+- **BREAKING**: `getSanctumToken()` and `setSanctumToken()` methods.
+- CLI scaffolding system (`bin/main.dart`, `lib/cli_dialog/`, `lib/stubs/`, `lib/slate_laravel_notify_fcm.dart`, `lib/models/`).
+- `pretty_dio_logger` dependency.
+
 ## [2.1.5] - 2025-12-17
 
 * Add extra check to `getFcmToken` method to ensure token is not null

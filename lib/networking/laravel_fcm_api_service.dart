@@ -1,48 +1,41 @@
-import 'package:flutter/material.dart';
-import 'package:laravel_notify_fcm/laravel_notify_fcm.dart';
-import 'package:laravel_notify_fcm/networking/interceptors/interceptor_fcm_request.dart';
-import 'package:nylo_support/helpers/helper.dart';
-import 'package:nylo_support/networking/ny_api_service.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:dio/dio.dart';
+import 'package:nylo_support/networking/src/ny_api_service.dart';
+import '/laravel_notify_fcm.dart';
+import '/networking/interceptors/interceptor_fcm_request.dart';
+import 'package:nylo_support/helpers/ny_helpers.dart';
 
 /* LaravelFcmApiService
 |--------------------------------------------------------------------------
 | Define your API endpoints
-| Learn more https://nylo.dev/docs/6.x/networking
+| Learn more https://nylo.dev/docs/7.x/networking
 |-------------------------------------------------------------------------- */
 
 class LaravelFcmApiService extends NyApiService {
-  LaravelFcmApiService({BuildContext? buildContext})
-      : super(
-          buildContext,
-          decoders: {},
-        );
-
   @override
-  get interceptors => {
+  Map<Type, Interceptor> get interceptors => {
+        ...super.interceptors,
         if (getEnv('APP_DEBUG', defaultValue: true) == true)
-          PrettyDioLogger: PrettyDioLogger(),
-        InterceptorNotifyFCM: InterceptorNotifyFCM(),
+          InterceptorNotifyFCM: InterceptorNotifyFCM(),
       };
 
   /// Laravel FCM URL
   String get urlLaravel => LaravelNotifyFcm.instance.getUrl();
 
-  /// Get the Sanctum token
-  String? get sanctumToken => LaravelNotifyFcm.instance.getSanctumToken();
-
   /// Create or update device
-  Future<bool?> createOrUpdateDevice({bool active = true}) async {
-    String? fcmToken = await LaravelNotifyFcm.getFcmToken();
+  Future<bool?> createOrUpdateDevice(String? fcmToken,
+      {bool active = true, required String sanctumToken}) async {
     return await network(
       request: (api) => api.put("/device", data: {
         "is_active": (active == true ? 1 : 0),
         "fcm_token": fcmToken,
       }),
       baseUrl: urlLaravel,
+      headers: {
+        "Authorization": "Bearer $sanctumToken",
+      },
       handleSuccess: (response) {
         dynamic data = response.data;
-        if (!(data is Map)) return false;
+        if (data == null || data is! Map) return false;
         return data.containsKey('status') && data['status'] == 200;
       },
     );

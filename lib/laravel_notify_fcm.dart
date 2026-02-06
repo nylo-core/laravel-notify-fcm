@@ -1,13 +1,12 @@
 library laravel_notify_fcm;
 
-import 'dart:io';
-
 import 'package:device_meta/device_meta.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import '/exceptions/laravel_notify_fcm_exception.dart';
 import '/networking/laravel_fcm_api_service.dart';
+export '/exceptions/laravel_notify_fcm_exception.dart';
 
 /// LaravelNotifyFcm version
-const String _laravelNotifyFcmVersion = '2.1.5';
+const String _laravelNotifyFcmVersion = '3.0.0';
 
 /// LaravelNotifyFcm class
 class LaravelNotifyFcm {
@@ -20,10 +19,6 @@ class LaravelNotifyFcm {
 
   bool _debugMode = false;
 
-  FirebaseMessaging? _firebaseMessaging;
-
-  String? sanctumToken;
-
   final LaravelFcmApiService apiService = LaravelFcmApiService();
 
   String? _url;
@@ -31,12 +26,8 @@ class LaravelNotifyFcm {
   DeviceMeta? _deviceMeta;
 
   /// Initialize LaravelNotifyFcm
-  init(
-      {required FirebaseMessaging firebaseMessaging,
-      required String url,
-      bool debugMode = false}) async {
+  Future<void> init({required String url, bool debugMode = false}) async {
     _debugMode = debugMode;
-    _firebaseMessaging = firebaseMessaging;
     _url = url;
     _deviceMeta =
         await DeviceMeta.init(storageKey: "laravel_notify_fcm_device_meta");
@@ -50,133 +41,53 @@ class LaravelNotifyFcm {
   /// Get the DeviceMeta instance
   Map<String, dynamic> getDeviceMetaJson() {
     if (_deviceMeta == null) {
-      throw Exception(
-          "DeviceMeta instance is null. Please initialize LaravelNotifyFcm first.");
+      throw LaravelNotifyFcmNotInitializedException(
+          "DeviceMeta instance is null. Please call LaravelNotifyFcm.instance.init() first.");
     }
     return _deviceMeta!.toJson();
-  }
-
-  /// Get the FirebaseMessaging instance
-  FirebaseMessaging getFirebaseMessaging() {
-    if (_firebaseMessaging == null) {
-      throw Exception(
-          "FirebaseMessaging instance is null. Please initialize LaravelNotifyFcm first.");
-    }
-    return _firebaseMessaging!;
-  }
-
-  /// Get the FCM token
-  static Future<String?> getFcmToken() async {
-    FirebaseMessaging firebaseMessaging =
-        LaravelNotifyFcm.instance.getFirebaseMessaging();
-    if (Platform.isIOS) {
-      final apnsToken = await firebaseMessaging.getAPNSToken();
-      if (apnsToken == null) {
-        return null;
-      }
-    }
-    return await firebaseMessaging.getToken();
   }
 
   /// Get the URL
   String getUrl() {
     if (_url == null) {
-      throw Exception("URL is null. Please initialize LaravelNotifyFcm first.");
+      throw LaravelNotifyFcmNotInitializedException(
+          "URL is null. Please call LaravelNotifyFcm.instance.init() first.");
     }
     return _url!;
   }
 
-  /// Get Sanctum token
-  String? getSanctumToken() {
-    if (sanctumToken == null) {
-      print("Sanctum token is null. Please set the sanctum token first.");
-    }
-    return sanctumToken!;
-  }
-
-  /// Set Sanctum token
-  void setSanctumToken(String token) {
-    sanctumToken = token;
-  }
-
-  /// Request permission to send notifications
-  static Future<NotificationSettings?> storeFcmDevice({
+  /// Store FCM device token with the Laravel backend.
+  ///
+  /// Sends the [fcmToken] and device metadata to Laravel for push notification delivery.
+  /// Requires a valid [sanctumToken] for authentication.
+  static Future<bool?> storeFcmDevice(
+    String? fcmToken, {
     required String sanctumToken,
-
-    /// Request permission to display alerts. Defaults to `true`.
-    ///
-    /// iOS/macOS only.
-    bool alert = true,
-
-    /// Request permission for Siri to automatically read out notification messages over AirPods.
-    /// Defaults to `false`.
-    ///
-    /// iOS only.
-    bool announcement = false,
-
-    /// Request permission to update the application badge. Defaults to `true`.
-    ///
-    /// iOS/macOS only.
-    bool badge = true,
-
-    /// Request permission to display notifications in a CarPlay environment.
-    /// Defaults to `false`.
-    ///
-    /// iOS only.
-    bool carPlay = false,
-
-    /// Request permission for critical alerts. Defaults to `false`.
-    ///
-    /// Note; your application must explicitly state reasoning for enabling
-    /// critical alerts during the App Store review process or your may be
-    /// rejected.
-    ///
-    /// iOS only.
-    bool criticalAlert = false,
-
-    /// Request permission to provisionally create non-interrupting notifications.
-    /// Defaults to `false`.
-    ///
-    /// iOS only.
-    bool provisional = false,
-
-    /// Request permission to play sounds. Defaults to `true`.
-    ///
-    /// iOS/macOS only.
-    bool sound = true,
   }) async {
-    FirebaseMessaging _firebaseMessaging =
-        LaravelNotifyFcm.instance.getFirebaseMessaging();
-
-    LaravelNotifyFcm.instance.sanctumToken = sanctumToken;
-
-    NotificationSettings? notificationSettings;
-    if (Platform.isIOS) {
-      notificationSettings = await _firebaseMessaging.requestPermission();
-    }
-
-    await enableFcmDevice();
-
-    return notificationSettings;
+    return await enableFcmDevice(fcmToken, sanctumToken: sanctumToken);
   }
 
   /// Enable FCM device
-  static Future<bool> enableFcmDevice() async {
-    return await LaravelNotifyFcm.apiServiceFcm(
-            (api) => api.createOrUpdateDevice(active: true)) ??
+  static Future<bool> enableFcmDevice(String? fcmToken,
+      {required String sanctumToken}) async {
+    return await LaravelNotifyFcm.apiServiceFcm((api) =>
+            api.createOrUpdateDevice(fcmToken,
+                active: true, sanctumToken: sanctumToken)) ??
         false;
   }
 
   /// Disable FCM device
-  static Future<bool> disableFcmDevice() async {
-    return await LaravelNotifyFcm.apiServiceFcm(
-            (api) => api.createOrUpdateDevice(active: false)) ??
+  static Future<bool> disableFcmDevice(String? fcmToken,
+      {required String sanctumToken}) async {
+    return await LaravelNotifyFcm.apiServiceFcm((api) =>
+            api.createOrUpdateDevice(fcmToken,
+                active: false, sanctumToken: sanctumToken)) ??
         false;
   }
 
   /// Get the LaravelFcmApiService instance
-  static apiServiceFcm(
+  static Future<dynamic> apiServiceFcm(
       Function(LaravelFcmApiService apiService) callback) async {
-    await callback(LaravelNotifyFcm.instance.apiService);
+    return await callback(LaravelNotifyFcm.instance.apiService);
   }
 }
