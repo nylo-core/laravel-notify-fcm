@@ -7,7 +7,7 @@ class InterceptorNotifyFCM extends InterceptorsWrapper {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     try {
-      Map<String, dynamic> deviceMeta =
+      final Map<String, dynamic> deviceMeta =
           LaravelNotifyFcm.instance.getDeviceMetaJson();
 
       options.headers.addAll({

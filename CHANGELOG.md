@@ -1,3 +1,17 @@
+## [3.1.0] - 2026-05-23
+
+### Added
+- `syncDeviceMeta()` static method to push the latest device metadata (uuid, model, display name, platform, version) to Laravel via `PATCH /device/meta`.
+- `syncDeviceMeta` named parameter on `storeFcmDevice()` to optionally sync device meta after the device is stored.
+- `updateDeviceMeta()` method on `LaravelFcmApiService` backing the new endpoint.
+- `lint: ^2.8.0` dev dependency and root `analysis_options.yaml`.
+
+### Changed
+- `init()` is now idempotent — subsequent calls are no-ops instead of overwriting state.
+- `storeFcmDevice()` return type tightened from `Future<bool?>` to `Future<bool>`.
+- `apiServiceFcm()` is now generic (`apiServiceFcm<T>`) and takes a strongly-typed `Future<T> Function(LaravelFcmApiService)` callback.
+- Bumped `nylo_support` to ^7.26.0, `device_meta` to ^3.0.2, `dio` to ^5.9.2, `mockito` to ^5.7.0.
+
 ## [3.0.0] - 2026-02-06
 
 ### Added
