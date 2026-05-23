@@ -616,9 +616,10 @@ packages:
   nylo_support:
     dependency: "direct main"
     description:
-      path: "../support"
-      relative: true
-    source: path
+      name: nylo_support
+      sha256: "6a541ce130bdc8a99ac4b8dadc29a3ffabe7194fc9da49b1dada7ee80a15ba77"
+      url: "https://pub.dev"
+    source: hosted
     version: "7.26.1"
   objective_c:
     dependency: transitive
