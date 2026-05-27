@@ -1,3 +1,8 @@
+## [3.1.2] - 2026-05-27
+
+### Changed
+- Bumped `nylo_support` to ^7.27.0.
+
 ## [3.1.1] - 2026-05-23
 
 ### Changed
