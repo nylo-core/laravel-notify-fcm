@@ -11,9 +11,10 @@ import 'package:laravel_notify_fcm/laravel_notify_fcm.dart';
 import 'package:nylo_support/helpers/ny_helpers.dart' show NyEnvRegistry;
 
 void main() {
-  // LaravelFcmApiService reads `APP_DEBUG` via getEnv() during construction.
-  // Stub the env registry so the default value is returned in tests that do
-  // not ship a generated env.g.dart.
+  // NyApiService (the base class) reads `APP_DEBUG` via getEnv() during
+  // construction to decide whether to attach its network logger. Stub the env
+  // registry so the default value is returned in tests that do not ship a
+  // generated env.g.dart.
   TestWidgetsFlutterBinding.ensureInitialized();
   NyEnvRegistry.register(
     getter: (key, {dynamic defaultValue}) => defaultValue,
@@ -22,7 +23,7 @@ void main() {
   group('LaravelNotifyFcm', () {
     group('version', () {
       test('returns correct version string', () {
-        expect(LaravelNotifyFcm.version, equals('3.1.2'));
+        expect(LaravelNotifyFcm.version, equals('3.2.0'));
       });
 
       test('version follows semver format', () {
@@ -59,6 +60,19 @@ void main() {
           () {
         expect(
           () => LaravelNotifyFcm.instance.getDeviceMetaJson(),
+          throwsA(isA<LaravelNotifyFcmNotInitializedException>().having(
+            (e) => e.toString(),
+            'message',
+            contains('DeviceMeta instance is null'),
+          )),
+        );
+      });
+
+      test(
+          'getDeviceMeta throws LaravelNotifyFcmNotInitializedException when not initialized',
+          () {
+        expect(
+          () => LaravelNotifyFcm.instance.getDeviceMeta(),
           throwsA(isA<LaravelNotifyFcmNotInitializedException>().having(
             (e) => e.toString(),
             'message',

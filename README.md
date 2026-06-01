@@ -16,7 +16,7 @@ Add the following to your `pubspec.yaml` file:
 
 ``` yaml
 dependencies:
-  laravel_notify_fcm: ^3.1.2
+  laravel_notify_fcm: ^3.2.0
 ```
 
 or with Dart:
@@ -71,6 +71,22 @@ This will send the device token and metadata to your Laravel backend via a PUT `
 View our [docs](https://github.com/nylo-core/laravel-fcm-channel) on Laravel FCM Channel to start sending notifications.
 
 Try the [example](/example) app to see how it works.
+
+### Accessing device metadata
+
+After `init`, you can read the current device metadata either as a typed object or as a JSON map.
+
+``` dart
+// Typed DeviceMeta object — direct field access
+DeviceMeta meta = LaravelNotifyFcm.instance.getDeviceMeta();
+print(meta.uuid);
+print(meta.model);
+
+// Or as a plain Map<String, dynamic>
+Map<String, dynamic> metaJson = LaravelNotifyFcm.instance.getDeviceMetaJson();
+```
+
+Both throw `LaravelNotifyFcmNotInitializedException` if called before `init`.
 
 ## Changelog
 Please see [CHANGELOG](https://github.com/nylo-core/laravel-notify-fcm/blob/master/CHANGELOG.md) for more information what has changed recently.

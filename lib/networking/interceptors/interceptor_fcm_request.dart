@@ -7,16 +7,15 @@ class InterceptorNotifyFCM extends InterceptorsWrapper {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     try {
-      final Map<String, dynamic> deviceMeta =
-          LaravelNotifyFcm.instance.getDeviceMetaJson();
+      final DeviceMeta deviceMeta = LaravelNotifyFcm.instance.getDeviceMeta();
 
       options.headers.addAll({
         "X-DMETA": jsonEncode({
-          "uuid": deviceMeta['uuid'],
-          "model": deviceMeta['model'],
-          "display_name": deviceMeta['name'],
-          "platform": deviceMeta['platform_type'],
-          "version": deviceMeta['version'],
+          "uuid": deviceMeta.uuid,
+          "model": deviceMeta.model,
+          "display_name": deviceMeta.name,
+          "platform": deviceMeta.platformType,
+          "version": deviceMeta.version,
         })
       });
     } on LaravelNotifyFcmNotInitializedException {

@@ -1,3 +1,15 @@
+## [3.2.0] - 2026-06-01
+
+### Added
+- `getDeviceMeta()` on `LaravelNotifyFcm` returning the typed `DeviceMeta` singleton for direct field access (`uuid`, `model`, `name`, `platformType`, `version`) and helpers like `getMetaData<T>()`. `getDeviceMetaJson()` remains for callers that only need a plain `Map<String, dynamic>`.
+- Re-export of `DeviceMeta` from the package's public API, so consumers can use the type without importing `device_meta` directly.
+
+### Fixed
+- `InterceptorNotifyFCM` is now registered unconditionally instead of only when `APP_DEBUG` is `true`. The `X-DMETA` header carries the device `uuid` the backend needs to find-or-create the device, so release builds with debug disabled previously sent no `uuid` and device registration silently failed.
+
+### Deprecated
+- The `syncDeviceMeta` parameter on `storeFcmDevice()` is deprecated and now ignored. Device metadata travels on the same `PUT /device` request via the `X-DMETA` header (persisted by the backend's `AppApiRequestMiddleware`), so the separate `PATCH /device/meta` call is no longer made. The flag will be removed in 4.0.0. The standalone `syncDeviceMeta()` method remains available for explicit meta syncs.
+
 ## [3.1.2] - 2026-05-27
 
 ### Changed

@@ -73,15 +73,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
 
-  Future<void> _onStoreDeviceWithSync() => _runAction(
-        'storeFcmDevice (syncDeviceMeta: true)',
-        () => LaravelNotifyFcm.storeFcmDevice(
-          _fcmToken,
-          sanctumToken: _sanctumToken,
-          syncDeviceMeta: true,
-        ),
-      );
-
   Future<void> _onEnableDevice() => _runAction(
         'enableFcmDevice',
         () => LaravelNotifyFcm.enableFcmDevice(
@@ -110,6 +101,19 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() => _statusMessage = 'getDeviceMetaJson →\n$pretty');
     } catch (e) {
       setState(() => _statusMessage = 'getDeviceMetaJson error: $e');
+    }
+  }
+
+  void _onShowDeviceMetaTyped() {
+    try {
+      // Explicit DeviceMeta type resolves via the re-export from
+      // laravel_notify_fcm.dart — no separate device_meta import needed.
+      final DeviceMeta meta = LaravelNotifyFcm.instance.getDeviceMeta();
+      setState(() => _statusMessage = 'getDeviceMeta →\n'
+          'uuid: ${meta.uuid}\nmodel: ${meta.model}\n'
+          'platform: ${meta.platformType}\nversion: ${meta.version}');
+    } catch (e) {
+      setState(() => _statusMessage = 'getDeviceMeta error: $e');
     }
   }
 
@@ -150,11 +154,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 8),
               ElevatedButton(
-                onPressed: _onStoreDeviceWithSync,
-                child: const Text('Store device + sync meta'),
-              ),
-              const SizedBox(height: 8),
-              ElevatedButton(
                 onPressed: _onEnableDevice,
                 child: const Text('Enable notifications'),
               ),
@@ -172,6 +171,11 @@ class _MyHomePageState extends State<MyHomePage> {
               OutlinedButton(
                 onPressed: _onShowDeviceMeta,
                 child: const Text('Show device meta'),
+              ),
+              const SizedBox(height: 8),
+              OutlinedButton(
+                onPressed: _onShowDeviceMetaTyped,
+                child: const Text('Show device meta (typed)'),
               ),
               const SizedBox(height: 20),
               Card(

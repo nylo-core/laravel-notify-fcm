@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:laravel_notify_fcm/laravel_notify_fcm.dart';
 import 'package:laravel_notify_fcm/networking/interceptors/interceptor_fcm_request.dart';
-import 'package:nylo_support/helpers/ny_helpers.dart';
 import 'package:nylo_support/networking/src/ny_api_service.dart';
 
 /* LaravelFcmApiService
@@ -15,8 +14,7 @@ class LaravelFcmApiService extends NyApiService {
   @override
   Map<Type, Interceptor> get interceptors => {
         ...super.interceptors,
-        if (getEnv('APP_DEBUG', defaultValue: true) == true)
-          InterceptorNotifyFCM: InterceptorNotifyFCM(),
+        InterceptorNotifyFCM: InterceptorNotifyFCM(),
       };
 
   /// Laravel FCM URL
