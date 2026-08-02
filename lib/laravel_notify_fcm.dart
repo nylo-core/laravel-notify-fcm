@@ -6,7 +6,7 @@ export 'package:device_meta/device_meta.dart' show DeviceMeta;
 export 'package:laravel_notify_fcm/exceptions/laravel_notify_fcm_exception.dart';
 
 /// LaravelNotifyFcm version. Keep in sync with `version:` in pubspec.yaml.
-const String _laravelNotifyFcmVersion = '3.2.0';
+const String _laravelNotifyFcmVersion = '3.2.1';
 
 /// LaravelNotifyFcm class
 class LaravelNotifyFcm {
@@ -14,7 +14,7 @@ class LaravelNotifyFcm {
 
   static final LaravelNotifyFcm instance = LaravelNotifyFcm._();
 
-  /// Current package version (e.g. `3.2.0`).
+  /// Current package version (e.g. `3.2.1`).
   static String get version => _laravelNotifyFcmVersion;
 
   bool _debugMode = false;

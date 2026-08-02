@@ -1,3 +1,10 @@
+## [3.2.1] - 2026-08-02
+
+### Changed
+- Bumped `nylo_support` to ^7.27.4.
+- Bumped `device_meta` to ^3.0.4.
+- Bumped `dio` to ^5.11.0.
+
 ## [3.2.0] - 2026-06-01
 
 ### Added

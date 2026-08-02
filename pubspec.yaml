@@ -1,6 +1,6 @@
 name: laravel_notify_fcm
 description: "Laravel Notify for Firebase Cloud Messaging (FCM) - Send push notifications to your Flutter app from Laravel."
-version: 3.2.0
+version: 3.2.1
 homepage: https://nylo.dev
 repository: https://github.com/nylo-core/laravel-notify-fcm
 issue_tracker: https://github.com/nylo-core/laravel-notify-fcm/issues
@@ -17,11 +17,11 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  device_meta: ^3.0.2
-  dio: ^5.9.2
+  device_meta: ^3.0.4
+  dio: ^5.11.0
   flutter:
     sdk: flutter
-  nylo_support: ^7.27.0
+  nylo_support: ^7.27.4
 
 dev_dependencies:
   flutter_test:
