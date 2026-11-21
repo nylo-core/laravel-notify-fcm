@@ -66,33 +66,31 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _onStoreDevice() => _runAction(
-        'storeFcmDevice',
-        () => LaravelNotifyFcm.storeFcmDevice(
-          _fcmToken,
-          sanctumToken: _sanctumToken,
-        ),
-      );
+    'storeFcmDevice',
+    () =>
+        LaravelNotifyFcm.storeFcmDevice(_fcmToken, sanctumToken: _sanctumToken),
+  );
 
   Future<void> _onEnableDevice() => _runAction(
-        'enableFcmDevice',
-        () => LaravelNotifyFcm.enableFcmDevice(
-          _fcmToken,
-          sanctumToken: _sanctumToken,
-        ),
-      );
+    'enableFcmDevice',
+    () => LaravelNotifyFcm.enableFcmDevice(
+      _fcmToken,
+      sanctumToken: _sanctumToken,
+    ),
+  );
 
   Future<void> _onDisableDevice() => _runAction(
-        'disableFcmDevice',
-        () => LaravelNotifyFcm.disableFcmDevice(
-          _fcmToken,
-          sanctumToken: _sanctumToken,
-        ),
-      );
+    'disableFcmDevice',
+    () => LaravelNotifyFcm.disableFcmDevice(
+      _fcmToken,
+      sanctumToken: _sanctumToken,
+    ),
+  );
 
   Future<void> _onSyncDeviceMeta() => _runAction(
-        'syncDeviceMeta',
-        () => LaravelNotifyFcm.syncDeviceMeta(sanctumToken: _sanctumToken),
-      );
+    'syncDeviceMeta',
+    () => LaravelNotifyFcm.syncDeviceMeta(sanctumToken: _sanctumToken),
+  );
 
   void _onShowDeviceMeta() {
     try {
@@ -109,9 +107,12 @@ class _MyHomePageState extends State<MyHomePage> {
       // Explicit DeviceMeta type resolves via the re-export from
       // laravel_notify_fcm.dart — no separate device_meta import needed.
       final DeviceMeta meta = LaravelNotifyFcm.instance.getDeviceMeta();
-      setState(() => _statusMessage = 'getDeviceMeta →\n'
-          'uuid: ${meta.uuid}\nmodel: ${meta.model}\n'
-          'platform: ${meta.platformType}\nversion: ${meta.version}');
+      setState(
+        () => _statusMessage =
+            'getDeviceMeta →\n'
+            'uuid: ${meta.uuid}\nmodel: ${meta.model}\n'
+            'platform: ${meta.platformType}\nversion: ${meta.version}',
+      );
     } catch (e) {
       setState(() => _statusMessage = 'getDeviceMeta error: $e');
     }
@@ -131,8 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: _fcmTokenController,
                 decoration: const InputDecoration(
                   labelText: 'FCM token',
-                  helperText:
-                      'In a real app, get this from FirebaseMessaging.instance.getToken()',
+                  helperText: 'In a real app, get this from FirebaseMessaging.instance.getToken()',
                   border: OutlineInputBorder(),
                 ),
               ),
