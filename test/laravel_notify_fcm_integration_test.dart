@@ -23,7 +23,7 @@ void main() {
   group('LaravelNotifyFcm', () {
     group('version', () {
       test('returns correct version string', () {
-        expect(LaravelNotifyFcm.version, equals('3.2.1'));
+        expect(LaravelNotifyFcm.version, equals('3.2.2'));
       });
 
       test('version follows semver format', () {

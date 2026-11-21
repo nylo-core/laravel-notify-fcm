@@ -1,3 +1,11 @@
+## [3.2.2] - 2026-11-21
+
+### Changed
+- Example app now uses the standalone `material_ui` package (`^1.11.0`) instead of `package:flutter/material.dart`, and requires Dart `^3.13.0` and Flutter `>=3.47.0`.
+- Publish workflow updated to `actions/checkout@v5`.
+- Analyzer now excludes `build/**` in the package and `ios/**` in the example.
+- Refreshed `pubspec.lock` files with the latest compatible transitive dependencies.
+
 ## [3.2.1] - 2026-08-02
 
 ### Changed

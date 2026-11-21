@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:laravel_notify_fcm/laravel_notify_fcm.dart';
 
 Future<void> main() async {
